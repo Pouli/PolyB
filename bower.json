@@ -1,0 +1,13 @@
+{
+  "name": "pwa-bet",
+  "description": "",
+  "main": "./src/app/index.html",
+  "authors": [
+    "Pouli"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "dependencies": {
+    "polymer": "^1.6.0"
+  }
+}

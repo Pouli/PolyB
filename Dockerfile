@@ -1,27 +1,32 @@
 # Selection de la VM node
- FROM node:5.11
+FROM node:5.11
 
- # Création du dossier de travail
- WORKDIR /app
+#install Bower
+RUN npm i -g bower
+RUN npm i -g gulp
 
- # Ajout des package.json
- ADD package.json /app/package.json
+# Création du dossier de travail
+WORKDIR /app
 
- ADD server/package.json /app/server/package.json
+# Ajout des package.json
+ADD package.json /app/package.json
+ADD bower.json /app/bower.json
+ADD .bowerrc /app/.bowerrc
 
- # Installation des dépendances
- RUN npm i
+# Installation des dépendances
+RUN npm i
+RUN bower i --allow-root
 
- # Ajout de l'app
- ADD . /app
+# Ajout de l'app
+ADD . /app
 
- # Initialisatioin des variables d'environnement
+# Initialisatioin des variables d'environnement
 
- # Exposition du port 3000
- EXPOSE 3000
+# Exposition du port 3000
+EXPOSE 3000
 
- # Creation du build front avec Webpack
- RUN npm run build
+# Creation du build front avec Gulp
+RUN gulp
 
- # On lance le serveur
- CMD ["node", "server/server.js"]
+# On lance le serveur
+CMD ["node", "server/server.js"]

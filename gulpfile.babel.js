@@ -12,6 +12,7 @@ const dist = function (subpath) {
     return !subpath ? DIST : path.join(DIST, subpath);
 };
 
+// Build /dist folder
 gulp.task('default', ['clean'], (cb) => {
     runSequence(
         'copy',
@@ -21,13 +22,16 @@ gulp.task('default', ['clean'], (cb) => {
     );
 });
 
+// Remove /dist folder
 gulp.task('clean', () =>  del([dist()]));
 
+// Copy dependencies to /dist folder
 gulp.task('copy', () =>
     gulp.src('src/bower_components/**/*')
         .pipe(gulp.dest(dist('bower_components')))
 );
 
+// Lint js code
 gulp.task('lint', () =>
     gulp.src('src/**/*.{js,html}')
         .pipe($.eslint())
@@ -35,6 +39,7 @@ gulp.task('lint', () =>
         .pipe($.eslint.failAfterError())
 );
 
+// Transpile + sourcemap js code
 gulp.task('js', () =>
     gulp.src(['src/**/*.{js,html}', '!src/bower_components/**/*'])
         .pipe($.sourcemaps.init())
@@ -44,6 +49,12 @@ gulp.task('js', () =>
         .pipe(gulp.dest(dist()))
 );
 
+// Watch for front files modifications
+gulp.task('watch', ['default'], () => {
+    gulp.watch(['src/**/*.{js,html}'], ['lint', 'js']);
+});
+
+// Task to build and serve /dist folder
 gulp.task('serve', ['default'], () => {
     browserSync({
         port: 5001,

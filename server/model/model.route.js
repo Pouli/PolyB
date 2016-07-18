@@ -1,9 +1,11 @@
 'use strict';
 
 module.exports = (router) => {
-    router.get('/user', (req, res) => {
+    router.get('/user', (req, res, next) => {
         // res.send([{name: 'Pouli'}, {name: 'Blabla'}]);
-        res.send(test);
+        var err = new Error();
+        err.status = 404;
+        next(err);
     });
 
     router.get('/user/:id', (req, res) => {

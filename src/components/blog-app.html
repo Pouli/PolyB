@@ -1,0 +1,55 @@
+<link rel="import" href="../bower_components/app-route/app-location.html">
+<link rel="import" href="../bower_components/app-route/app-route.html">
+
+<link rel="import" href="../bower_components/iron-selector/iron-selector.html">
+
+<link rel="import" href="blog-pages.html">
+
+<dom-module id="blog-app">
+    <template>
+        <style>
+
+        </style>
+
+        <app-location route="{{route}}"
+                      use-hash-as-path></app-location>
+
+        <app-route route="{{route}}"
+                   pattern="/:category"
+                   data="{{categoryData}}"
+                   tail="{{categoryTail}}"></app-route>
+
+        <iron-selector selected="{{categoryData.category}}"
+                       attr-for-selected="data-page">
+            <a data-page="art" href="#/art/list">Art</a>
+            <a data-page="film" href="#/film/list">Film</a>
+            <a data-page="photo" href="#/photo/list">Photo</a>
+        </iron-selector>
+
+        <main>
+            <blog-pages category="{{categoryData.category}}"
+                        route="{{categoryTail}}"></blog-pages>
+        </main>
+    </template>
+
+    <script>
+        (function () {
+            'use strict';
+
+            class App {
+                beforeRegister() {
+                    this.is = 'blog-app';
+                    this.properties = {};
+                }
+
+                attached() {
+                    if (!this.route.path) {
+                        this.set('route.path', '/art/list');
+                    }
+                }
+            }
+
+            Polymer(App);
+        })();
+    </script>
+</dom-module>

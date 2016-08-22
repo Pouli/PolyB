@@ -6,7 +6,7 @@ ADD package.json /app/package.json
 ADD bower.json /app/bower.json
 ADD .bowerrc /app/.bowerrc
 
-npm RUN npm run dep-install
+RUN npm run dep-install
 
 ADD . /app
 

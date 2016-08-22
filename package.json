@@ -2,7 +2,6 @@
   "name": "pwa-bet",
   "version": "0.0.1",
   "description": "",
-  "main": "./src/app/app.js",
   "scripts": {
     "start": "gulp && node server/server.js",
     "dep-install": "npm i && bower i --allow-root",

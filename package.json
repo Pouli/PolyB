@@ -33,10 +33,12 @@
     "run-sequence": "^1.2.2"
   },
   "dependencies": {
+    "bluebird": "^3.4.3",
     "body-parser": "^1.15.2",
     "bower": "^1.7.9",
     "express": "^4.14.0",
     "method-override": "^2.3.6",
+    "mongodb": "^2.2.8",
     "morgan": "^1.7.0"
   }
 }

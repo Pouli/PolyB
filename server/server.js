@@ -6,6 +6,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const database = require('./utils/database');
 
 const logErrors = require('./error-handler/log-errors');
 const clientErrorHandler = require('./error-handler/client-error-handler');
@@ -28,6 +29,10 @@ app.use(logErrors);
 app.use(clientErrorHandler);
 app.use(errorHandler);
 
-server.listen(process.env.PORT || 3000);
+database.connect()
+    .then(() => {
+        server.listen(process.env.PORT || 3000);
+    })
+    .catch(err => console.log(err));
 
 module.exports = server;
